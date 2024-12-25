@@ -1,0 +1,14 @@
+Ignore,ID,Name,ParentDepartmentID
+,C,Corporate,
+,CCA,Corporate Compliance & Audit,C
+,CCM,Corporate Communications,C
+,CHR,Corporate HR,C
+#,CHR-D,Corporate HR Development,CHR
+,F,Finance,
+,FAN,Corporate Accounting,F
+#,FAN-G,Group Accounting,FAN
+#,FAN-PX,Processes & Systems,FAN
+#,FAN-SV,Accounting Shared Service Center,FAN
+,FCO,Corporate Controlling,F
+#,FCO-F,Central Financial Controlling,FCO
+#,FCO-G,Group Controlling,FCO
