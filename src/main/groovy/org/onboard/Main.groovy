@@ -17,7 +17,16 @@ class CsvToXml {
             br = new BufferedReader(new FileReader(filePath))
             List<String> departmentData = br.readLines()
 
-            List<List<String>> deptList = departmentData.findAll { !it.startsWith("#") }.collect { it.split(",")[1..-1] }
+            List<List<String>> deptList = departmentData.findAll { !it.startsWith("#") }.collect { eachLine ->
+
+                if (!eachLine.isEmpty()) {
+                    eachLine.split(",")[1..-1]
+                } else {
+                    []
+                }
+
+            }.findAll { it.size() > 0 }
+
             List<String> fileHeaders = deptList.remove(0)
 
             def hierarchyDeptList = generateHierarchyDept(deptList)
