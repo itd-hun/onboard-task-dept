@@ -1,9 +1,11 @@
 package org.onboard
+
 import groovy.xml.MarkupBuilder
+import groovy.xml.XmlUtil
 
 class CsvToXml {
-    static void main(String[] args) {
 
+    static void main(String[] args) {
         //Load CSV File from Resource
         def resource = CsvToXml.class.classLoader.getResource("departments.csv")
         def filePath = resource ? resource.toURI().path : null
@@ -18,14 +20,17 @@ class CsvToXml {
             List<List<String>> deptList = departmentData.findAll { !it.startsWith("#") }.collect { it.split(",")[1..-1] }
             List<String> fileHeaders = deptList.remove(0)
 
-            List<Map<String, String>> deptMap = []
-
-            def hierarchyDeptList = buildHierarchyDept(deptList)
-
-            println("Initial Hierarchy Data")
-            println(hierarchyDeptList)
+            def hierarchyDeptList = generateHierarchyDept(deptList)
 
             String xmlString = generateXML(hierarchyDeptList)
+
+            def formattedXml = XmlUtil.serialize(xmlString)
+
+            String resultPath = "src/main/resources/departments.xml"
+
+            def file = new File(resultPath)
+            file.parentFile.mkdirs()
+            file.write(formattedXml)
 
         } catch (Exception e) {
             e.printStackTrace()
@@ -37,7 +42,8 @@ class CsvToXml {
 
     }
 
-    static List<List<Map<String, Object>>> buildHierarchyDept(List<List<String>> deptList) {
+    //Generates and returns Hierarchy department list
+    static List<List<Map<String, Object>>> generateHierarchyDept(List<List<String>> deptList) {
         def departmentMap = [:]
 
         deptList.forEach { eachDept ->
@@ -63,9 +69,47 @@ class CsvToXml {
         return departmentMap.values().findAll { it.parentDeptId == '' } as List<List<Map<String, Object>>>
     }
 
-    static String generateXML(List<List<Map<String, Object>>> deptNodeList){
+    //Generates XML from Hierarchy list
+    static String generateXML(List<List<Map<String, Object>>> deptNodeList) {
         def writer = new StringWriter()
         MarkupBuilder xml = new MarkupBuilder(writer)
-        return ""
+
+        xml.NikuDataBus('xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:noNamespaceSchemaLocation': '../xsd/nikuxog_department.xsd') {
+
+            Header(action: 'write', externalSource: 'NIKU', objectType: 'department', version: '15.9')
+
+            Departments {
+
+                deptNodeList.forEach { eachDept -> generateDepartment(xml, eachDept) }
+
+            }
+        }
+
+        return writer.toString()
+    }
+
+    //Recursively generates department xml
+    static void generateDepartment(xml, dept) {
+        xml.Department(department_code: dept.id,
+                dept_manager_code: dept.deptManagerCode,
+                entity: dept.entity,
+                short_description: dept.shortDescription) {
+            Description(dept.shortDescription)
+
+            if (dept.locationCode) {
+                LocationAssociations {
+                    LocationAssociation(locationcode: dept.locationCode)
+                }
+            }
+
+            if (dept.children && dept.children.size() > 0) {
+                dept.children.forEach { eachChild ->
+                    {
+                        generateDepartment(xml, eachChild)
+                    }
+                }
+            }
+        }
     }
 }

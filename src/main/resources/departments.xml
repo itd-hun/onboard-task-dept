@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><NikuDataBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xsd/nikuxog_department.xsd">
+    
+  <Header action="write" externalSource="NIKU" objectType="department" version="15.9"/>
+    
+  <Departments>
+        
+    <Department department_code="C" dept_manager_code="admin" entity="Corporate" short_description="Corporate">
+            
+      <Description>Corporate</Description>
+            
+      <LocationAssociations>
+                
+        <LocationAssociation locationcode="DE"/>
+              
+      </LocationAssociations>
+            
+      <Department department_code="CCA" dept_manager_code="admin" entity="Corporate" short_description="Corporate Compliance &amp; Audit">
+                
+        <Description>Corporate Compliance &amp; Audit</Description>
+                
+        <LocationAssociations>
+                    
+          <LocationAssociation locationcode="DE"/>
+                  
+        </LocationAssociations>
+              
+      </Department>
+            
+      <Department department_code="CCM" dept_manager_code="admin" entity="Corporate" short_description="Corporate Communications">
+                
+        <Description>Corporate Communications</Description>
+                
+        <LocationAssociations>
+                    
+          <LocationAssociation locationcode="DE"/>
+                  
+        </LocationAssociations>
+              
+      </Department>
+            
+      <Department department_code="CHR" dept_manager_code="admin" entity="Corporate" short_description="Corporate HR">
+                
+        <Description>Corporate HR</Description>
+                
+        <LocationAssociations>
+                    
+          <LocationAssociation locationcode="DE"/>
+                  
+        </LocationAssociations>
+              
+      </Department>
+          
+    </Department>
+        
+    <Department department_code="F" dept_manager_code="admin" entity="Corporate" short_description="Finance">
+            
+      <Description>Finance</Description>
+            
+      <LocationAssociations>
+                
+        <LocationAssociation locationcode="DE"/>
+              
+      </LocationAssociations>
+            
+      <Department department_code="FAN" dept_manager_code="admin" entity="Corporate" short_description="Corporate Accounting">
+                
+        <Description>Corporate Accounting</Description>
+                
+        <LocationAssociations>
+                    
+          <LocationAssociation locationcode="DE"/>
+                  
+        </LocationAssociations>
+              
+      </Department>
+            
+      <Department department_code="FCO" dept_manager_code="admin" entity="Corporate" short_description="Corporate Controlling">
+                
+        <Description>Corporate Controlling</Description>
+                
+        <LocationAssociations>
+                    
+          <LocationAssociation locationcode="DE"/>
+                  
+        </LocationAssociations>
+                
+        <Department department_code="FCO-F" dept_manager_code="admin" entity="Corporate" short_description="Central Financial Controlling">
+                    
+          <Description>Central Financial Controlling</Description>
+                    
+          <LocationAssociations>
+                        
+            <LocationAssociation locationcode="DE"/>
+                      
+          </LocationAssociations>
+                    
+          <Department department_code="FCO-Child" dept_manager_code="admin" entity="Corporate" short_description="First">
+                        
+            <Description>First</Description>
+                        
+            <LocationAssociations>
+                            
+              <LocationAssociation locationcode="DE"/>
+                          
+            </LocationAssociations>
+                      
+          </Department>
+                  
+        </Department>
+              
+      </Department>
+          
+    </Department>
+      
+  </Departments>
+  
+</NikuDataBus>
