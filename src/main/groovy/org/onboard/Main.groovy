@@ -2,6 +2,7 @@ package org.onboard
 
 import groovy.xml.MarkupBuilder
 import groovy.xml.XmlUtil
+import org.onboard.Model.Department
 
 class CsvToXml {
 
@@ -29,7 +30,7 @@ class CsvToXml {
 
             List<String> fileHeaders = deptList.remove(0)
 
-            def hierarchyDeptList = generateHierarchyDept(deptList)
+            List<List<Department>> hierarchyDeptList = generateHierarchyDept(deptList)
 
             String xmlString = generateXML(hierarchyDeptList)
 
@@ -52,7 +53,7 @@ class CsvToXml {
     }
 
     //Generates and returns Hierarchy department list
-    static List<List<Map<String, Object>>> generateHierarchyDept(List<List<String>> deptList) {
+    static List<List<Department>> generateHierarchyDept(List<List<String>> deptList) {
         def departmentMap = [:]
 
         deptList.forEach { eachDept ->
@@ -61,7 +62,7 @@ class CsvToXml {
                 def departmentName = eachDept[1]
                 def parentDeptId = eachDept[2] ?: ""
 
-                departmentMap[deptId] = [id: deptId, name: departmentName, parentDeptId: parentDeptId, deptManagerCode: "admin", entity: "Corporate", shortDescription: departmentName, locationCode: "DE", children: []]
+                departmentMap[deptId] =  new Department(deptId, departmentName, parentDeptId, "admin", "Corporate", departmentName, "DE", [])
             }
         }
 
@@ -75,7 +76,7 @@ class CsvToXml {
             }
         }
 
-        return departmentMap.values().findAll { it.parentDeptId == '' } as List<List<Map<String, Object>>>
+        return departmentMap.values().findAll { it.parentDeptId == '' } as List<List<Department>>
     }
 
     //Generates XML from Hierarchy list
