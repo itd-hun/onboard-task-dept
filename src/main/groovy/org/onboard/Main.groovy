@@ -62,7 +62,7 @@ class CsvToXml {
                 def departmentName = eachDept[1]
                 def parentDeptId = eachDept[2] ?: ""
 
-                departmentMap[deptId] =  new Department(deptId, departmentName, parentDeptId, "admin", "Corporate", departmentName, "DE", [])
+                departmentMap[deptId] = new Department(deptId, departmentName, parentDeptId, "admin", "Corporate", departmentName, "DE", [])
             }
         }
 
