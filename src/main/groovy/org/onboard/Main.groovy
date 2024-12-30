@@ -99,7 +99,7 @@ class CsvToXml {
         return writer.toString()
     }
 
-    //Recursively generates department xml
+    //Recursively generates child department xml
     static void generateDepartment(xml, dept) {
         xml.Department(department_code: dept.id,
                 dept_manager_code: dept.deptManagerCode,
